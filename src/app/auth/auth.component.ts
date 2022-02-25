@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
@@ -13,15 +13,40 @@ export class AuthComponent implements OnInit {
 
   isLoginMode = true;
   error: string = '';
+  form!: NgForm;
+  countries: Array<any> = [
+    { name: 'India', value: 'india' },
+    { name: 'France', value: 'france' },
+    { name: 'USA', value: 'USA' },
+    { name: 'Germany', value: 'germany' },
+    { name: 'Japan', value: 'Japan' }
+  ];
 
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, fb: FormBuilder) {
+    this.form = fb.group({
+      selectedCountries: new FormArray([])
+    });
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
 
+
+
+
+
+  onCheckboxChange(event: any) {
+    const selectedCountries = (this.form.controls.selectedCountries as FormArray);
+    if (event.target.checked) {
+      selectedCountries.push(new FormControl(event.target.value));
+    } else {
+      const index = selectedCountries.controls
+        .findIndex(x => x.value === event.target.value);
+      selectedCountries.removeAt(index);
+    }
+  }
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
