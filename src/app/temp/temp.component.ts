@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class TempComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
-  private userSub!: Subscription;
+  private userSub: Subscription;
 
   constructor(private authService: AuthService) { }
 
