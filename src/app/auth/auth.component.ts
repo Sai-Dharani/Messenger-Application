@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +14,7 @@ export class AuthComponent implements OnInit {
 
   isLoginMode = true;
   error: string = '';
-  form!: NgForm;
+  form: FormGroup;
   countries: Array<any> = [
     { name: 'India', value: 'india' },
     { name: 'France', value: 'france' },
@@ -22,7 +23,7 @@ export class AuthComponent implements OnInit {
     { name: 'Japan', value: 'Japan' }
   ];
 
-  constructor(private authService: AuthService, private router: Router, fb: FormBuilder) {
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private http:HttpClient) {
     this.form = fb.group({
       selectedCountries: new FormArray([])
     });
@@ -31,11 +32,6 @@ export class AuthComponent implements OnInit {
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
-
-
-
-
-
 
   onCheckboxChange(event: any) {
     const selectedCountries = (this.form.controls.selectedCountries as FormArray);
@@ -52,6 +48,7 @@ export class AuthComponent implements OnInit {
     if (!form.valid) {
       return;
     }
+    
     const email = form.value.email;
     const password = form.value.password;
 
@@ -70,6 +67,7 @@ export class AuthComponent implements OnInit {
 
       }
       console.log(resData);
+      this.http.post('https://chat-app-feec7-default-rtdb.asia-southeast1.firebasedatabase.app/users.json', resData.email).subscribe(response => console.log(response))
     },
       errorMessage => {
         this.error = errorMessage;
