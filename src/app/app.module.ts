@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {AngularFireModule} from '@angular/fire/compat';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 //import { MessagesComponent } from './messages/messages.component';
 //import { AuthComponent } from './auth/auth.component';
@@ -18,8 +17,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserItemComponent } from './user-item/user-item.component';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 import { appRoutes } from '../routes';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
+import { ChatService } from './services/chat.service';
 
 
 const config = {
@@ -49,14 +51,15 @@ const config = {
   ],
   imports: [
     BrowserModule,
-    //RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
     AngularFireModule.initializeApp(config)
   ],
-  providers: [],
+  providers: [AuthService, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

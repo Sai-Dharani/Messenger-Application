@@ -1,6 +1,26 @@
-
-
-<br>
+<!-- <div class="row">
+    <div class="col-md-12">
+        <form #authForm="ngForm" (onsubmit)="onSubmit(authForm)">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" class="form-control"
+                ngModel
+                name="email"
+                required
+                email
+                >
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" ngModel
+                required minlength="6">
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{isLoginMode ? 'login' : 'sign-up'}}</button>
+            <button class="btn btn-primary" (click)="onSwitchMode()">{{isLoginMode ? 'sign-up' : 'login'}}</button>
+        </form>
+    </div>
+</div> -->
+ <!-- <br>
 <div class="container-fluid  ">
     <div class="row d-flex justify-content-center align-items-center align-self-center">
         
@@ -21,7 +41,7 @@
                 <div class="form-outline mb-3">
                     <label class="form-label" for="passwdId">Password</label>
                     <input class="form-control form-control-lg" placeholder="Password" ngModel id="passwdId" name="password" type="password" value="" required minlength="6">
-                </div>
+                </div> -->
 
 
                 <!-- <section *ngIf="isLoginMode == false" >
@@ -33,7 +53,7 @@
                       <p>{{ form.value | json }}</p>
                   </section> -->
 
-                <div *ngIf="!isLoginMode">
+                <!-- <div *ngIf="!isLoginMode">
 
                     <section>
                         <div>
@@ -41,9 +61,9 @@
                             <input type="checkbox" [(ngModel)]="item.checked" 
                              (change)="changeCheckbox($event)">{{ item.country }}
                           </span>
-                        </div>
+                        </div> -->
                         <!-- <pre>{{this.result | json}}</pre> -->
-                      </section>
+                      <!-- </section>
                     
                 </div>
 
@@ -60,4 +80,4 @@
             </form>
         </div>
     </div>
-</div>
+</div>  -->

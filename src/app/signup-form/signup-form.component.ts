@@ -9,10 +9,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class SignupFormComponent {
 
-  email: string;
-  password: string;
-  displayName: string;
-  errorMsg: string;
+  email:any;
+  password:any;
+  displayName:any;
+  errorMsg:any;
 
   constructor(private authService: AuthService, private router: Router) { }
 

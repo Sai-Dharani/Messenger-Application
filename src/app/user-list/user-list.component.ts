@@ -11,8 +11,8 @@ export class UserListComponent {
   users: User[];
 
   constructor(chat: ChatService) {
-    chat.getUsers().subscribe(users => {
-      this.users = users;
-    });
+    // chat.getUsers().subscribe(users => {
+    //   this.users = users;
+    // });
   }
 }

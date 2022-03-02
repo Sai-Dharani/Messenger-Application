@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
+import * as firebase from 'firebase/auth';
 
 @Component({
   selector: 'app-navbar',

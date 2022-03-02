@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import * as firebase from 'firebase/auth';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+    return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
         this.setUserStatus('online');
@@ -35,12 +35,12 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.afAuth.signOut();
     this.router.navigate(['login']);
   }
 
   signUp(email: string, password: string, displayName: string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
         const status = 'online';
