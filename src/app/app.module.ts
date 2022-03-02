@@ -8,6 +8,11 @@ import { AuthComponent } from './auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TempComponent } from './temp/temp.component';
+// import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+// import {AngularFireModule} from '@angular/fire';
+
+// import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -22,6 +27,10 @@ import { TempComponent } from './temp/temp.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireDatabaseModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
