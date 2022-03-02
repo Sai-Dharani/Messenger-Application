@@ -1,122 +1,73 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError, tap } from 'rxjs/operators';
-import { Subject, throwError } from "rxjs";
-import { User } from "../auth/user.model";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../models/user.model';
 
-
-export interface AuthResponseData {
-    kind: string;
-    idToken: string;
-    email: string;
-    refreshToken: string;
-    expiresIn: string;
-    localId: string;
-    registered?: boolean;
-
-}
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthService {
+  private user: Observable<firebase.User>;
+  private authState: any;
 
-    user = new Subject<User>();
-    constructor(private http: HttpClient, private router: Router) {
-
+  constructor(private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase,
+    private router: Router) {
+      this.user = afAuth.authState;
     }
 
-    signup(email: string, password: string) {
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBcwC1JIR64E1MyFrtPNGO1g-NcU-FMlbg', {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }
-        ).pipe(catchError(this.handleError),
-            tap(resData => {
-                this.handleAuthentication(
-                    resData.email,
-                    resData.localId,
-                    resData.idToken,
-                    +resData.expiresIn)
-            }));
+    authUser() {
+      return this.user;
+    }
+
+    get currentUserId(): string {
+      return this.authState !== null ? this.authState.uid : '';
     }
 
     login(email: string, password: string) {
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBcwC1JIR64E1MyFrtPNGO1g-NcU-FMlbg', {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }
-        ).pipe(catchError(this.handleError))
+      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          this.authState = user;
+          this.setUserStatus('online');
+          this.router.navigate(['chat']);
+        });
     }
-    // autoLogin() {
-    //     const userData: {
-    //         email: string,
-    //         id: string,
-    //         _token: string,
-    //         _tokenExpirationDate: string
-    //     } = JSON.parse(localStorage.getItem('userData'));
-
-    //     if (!userData) {
-    //         return;
-    //     }
-
-    //     const loadedUser = new User(
-    //         userData.email,
-    //         userData.id,
-    //         userData._token,
-    //         new Date(userData._tokenExpirationDate)
-    //     );
-
-    //     if (loadedUser.token) {
-    //         this.user.next(loadedUser);
-    //     }
-    // }
 
     logout() {
-
-        this.user.next();
-        this.router.navigate(['/auth']);
-    }
-    private handleAuthentication(
-        email: string,
-        userId: string,
-        token: string,
-        expiresIn: number
-    ) {
-        const expirationDate = new Date(
-            new Date().getTime() + expiresIn * 1000
-        );
-        const user = new User(
-            email,
-            userId,
-            token,
-            expirationDate
-        );
-        this.user.next(user);
-        localStorage.setItem('userData', JSON.stringify(user));
-
+      this.afAuth.auth.signOut();
+      this.router.navigate(['login']);
     }
 
-    private handleError(errorRes: HttpErrorResponse) {
+    signUp(email: string, password: string, displayName: string) {
+      return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+              .then((user) => {
+                this.authState = user;
+                const status = 'online';
+                this.setUserData(email, displayName, status);
+              }).catch(error => console.log(error));
+    }
 
-        let errorMessage = 'error occured';
-        if (!errorRes.error || !errorRes.error.error) {
-            return throwError(errorMessage);
-        }
-        switch (errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-                errorMessage = 'this email already exists';
-                break;
-            case 'EMAIL_NOT_FOUND':
-                errorMessage = 'this email or password is incorrect'
-                break;
-            case 'INVALID_PASSWORD':
-                errorMessage = 'this email or password is incorrect'
-                break;
+    setUserData(email: string, displayName: string, status: string): void {
+      const path = `users/${this.currentUserId}`;
+      const data = {
+        email: email,
+        displayName: displayName,
+        status: status
+      };
 
-            default:
-                break;
-        }
-        return throwError(errorMessage);
+      this.db.object(path).update(data)
+        .catch(error => console.log(error));
+    }
+
+    setUserStatus(status: string): void {
+      const path = `users/${this.currentUserId}`;
+
+      const data = {
+        status: status
+      };
+
+      this.db.object(path).update(data)
+        .catch(error => console.log(error));
     }
 }
