@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+// import { BrowserModule } from '@angular/platform-browser';
 import { BrowserModule } from '@angular/platform-browser';
 import {AngularFireModule} from '@angular/fire/compat';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,13 +26,19 @@ const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    MessagesComponent,
-    AuthComponent,
-    TempComponent,
+    ChatFormComponent,
+    ChatroomComponent,
+    FeedComponent,
+    MessageComponent,
+    LoginFormComponent,
+    SignupFormComponent,
+    NavbarComponent,
+    UserListComponent,
+    UserItemComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

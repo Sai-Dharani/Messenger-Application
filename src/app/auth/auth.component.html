@@ -1,25 +1,4 @@
-<!-- <div class="row">
-    <div class="col-md-12">
-        <form #authForm="ngForm" (onsubmit)="onSubmit(authForm)">
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control"
-                ngModel
-                name="email"
-                required
-                email
-                >
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" ngModel
-                required minlength="6">
-            </div>
-            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{isLoginMode ? 'login' : 'sign-up'}}</button>
-            <button class="btn btn-primary" (click)="onSwitchMode()">{{isLoginMode ? 'sign-up' : 'login'}}</button>
-        </form>
-    </div>
-</div> -->
+
 
 <br>
 <div class="container-fluid  ">
@@ -32,7 +11,7 @@
         <div class="col-md-6 col-lg-6 col-xl-4 align-items-center justify-content-center justify-content-lg-center">
             
             <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-                <button class="btn btn-primary btn-lg " (click)="onSwitchMode()" type="button">{{isLoginMode ? 'Register': 'go to log in' }}</button> 
+                
                 <div class="form-outline mb-4">
                     <label class="form-label" for="emailLabel">Email address</label>
                     <input  class="form-control form-control-lg" id="emailLabel" placeholder="E-mail" ngModel name="email" type="text" required email>
@@ -44,9 +23,30 @@
                     <input class="form-control form-control-lg" placeholder="Password" ngModel id="passwdId" name="password" type="password" value="" required minlength="6">
                 </div>
 
+
+                <!-- <section *ngIf="isLoginMode == false" >
+                    <div *ngFor="let country of countries; let i=index">
+                        <input type="checkbox" formArrayName="selectedCountries" [value]="country.value" (change)="onCheckboxChange($event)" 
+                        />
+                        {{ country.name}}
+                      </div>
+                      <p>{{ form.value | json }}</p>
+                  </section> -->
+
                 <div *ngIf="!isLoginMode">
-                    <p>test</p>
+
+                    <section>
+                        <div>
+                          <span *ngFor="let item of list">
+                            <input type="checkbox" [(ngModel)]="item.checked" 
+                             (change)="changeCheckbox($event)">{{ item.country }}
+                          </span>
+                        </div>
+                        <!-- <pre>{{this.result | json}}</pre> -->
+                      </section>
+                    
                 </div>
+
                 <div class="alert alert-danger" *ngIf="error != '' " role="alert">
                     {{error}}
                   </div>

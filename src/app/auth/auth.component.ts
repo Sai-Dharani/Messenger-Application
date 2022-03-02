@@ -11,16 +11,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-
+  list: any[] = [];
   isLoginMode = true;
   error: string = '';
   form: FormGroup;
   countries: Array<any> = [
-    { name: 'India', value: 'india' },
-    { name: 'France', value: 'france' },
-    { name: 'USA', value: 'USA' },
-    { name: 'Germany', value: 'germany' },
-    { name: 'Japan', value: 'Japan' }
+    { name: 'Painting', value: 'painting' },
+    { name: 'Cooking ', value: 'cooking' },
+    { name: 'Cat', value: 'cat' },
+    { name: 'Dogs', value: 'dogs' },
+    { name: 'Angular', value: 'angular' }
   ];
 
   constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private http:HttpClient) {
@@ -46,6 +46,8 @@ export class AuthComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
+      console.log(this.form.value);
+
       return;
     }
     
@@ -77,8 +79,35 @@ export class AuthComponent implements OnInit {
 
     form.reset();
   }
-
+  get result() {
+    return this.list.filter(item => item.checked);
+  }
+  changeCheckbox(event: Event) {
+    console.log(event.target);
+  }
   ngOnInit(): void {
+    this.list = [
+      {
+        id: 1,
+        country: 'India',
+        checked: true,
+      },
+      {
+        id: 2,
+        country: 'France',
+        checked: false,
+      },
+      {
+        id: 3,
+        country: 'USA',
+        checked: true,
+      },
+      {
+        id: 4,
+        country: 'Germany',
+        checked: false,
+      },
+    ]
   }
 
 }
