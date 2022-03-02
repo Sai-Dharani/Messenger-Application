@@ -1,15 +1,26 @@
-// import { BrowserModule } from '@angular/platform-browser';
 import { BrowserModule } from '@angular/platform-browser';
 import {AngularFireModule} from '@angular/fire/compat';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MessagesComponent } from './messages/messages.component';
-import { AuthComponent } from './auth/auth.component';
+//import { MessagesComponent } from './messages/messages.component';
+//import { AuthComponent } from './auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { TempComponent } from './temp/temp.component';
-import {getDatabase} from 'firebase/database'
-import { initializeApp } from 'firebase/app';
+//import { TempComponent } from './temp/temp.component';
+import { MessageComponent } from './message/message.component';
+import { ChatFormComponent } from './chatform/chatform.component';
+import { ChatroomComponent } from './chatroom/chatroom.component';
+import { FeedComponent } from './feed/feed.component';
+import { NgModule } from '@angular/core';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserItemComponent } from './user-item/user-item.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from '../routes';
+import { CommonModule } from '@angular/common';
+
 
 const config = {
   apiKey: 'AIzaSyBcwC1JIR64E1MyFrtPNGO1g-NcU-FMlbg',
@@ -38,10 +49,11 @@ const config = {
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    //RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CommonModule,
     AngularFireModule.initializeApp(config)
   ],
   providers: [],
