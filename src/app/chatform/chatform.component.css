@@ -6,6 +6,7 @@
     color: #000;
     transition: 0.1s ease-out;
     padding-left: 80px;
+    width: 50%;
 }
 
 .chatInput:focus{
@@ -14,7 +15,7 @@
     transition: 0.2s ease-in;
 }
 
-.chatButton{
+.button{
     flex: 1;
     padding: 10px;
     padding: 8px 24px;
@@ -26,6 +27,6 @@
     min-width: 50px;
 }
 
-.chatButton:hover{
+.button:hover{
     background-color: #444;
 }

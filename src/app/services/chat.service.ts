@@ -13,7 +13,8 @@ export class ChatService {
   user: firebase.User;
   chatMessages: AngularFireList<ChatMessage[]>;
   chatMessage: ChatMessage;
-  userName: Observable<string>;
+  userName: string;
+  list:any
 
   constructor(
     private db: AngularFireDatabase,
@@ -23,10 +24,10 @@ export class ChatService {
           if (auth !== undefined && auth !== null) {
             this.user = auth;
           }
-
-          // this.getUser().subscribe(a => {
-          //   this.userName = a.displayName;
-          // });
+         this.list= this.getUser().valueChanges()
+         this.list.subscribe(a => {
+            this.userName = a.displayName;
+          });
         });
     }
 
@@ -45,34 +46,38 @@ export class ChatService {
     const timestamp = this.getTimeStamp();
     const email = this.user.email;
     this.chatMessages = this.getMessages();
-    // this.chatMessages.push({
-    //   $key : key,
-    //   timeSent: timestamp,
-    //   message: msg,
-    //   userName: this.userName,
-    //   email: email });
+    this.chatMessages.push([
+      {
+      message: msg,
+      userName: this.userName,
+      timeSent: timestamp,
+      email: email 
+    }
+  ]
+      );
   }
 
   getMessages(): AngularFireList<ChatMessage[]> {
     // query to create our message feed binding
+    //console.log(this.db.list('messages'))
     return this.db.list('messages')
+ 
     // , {
     //   query: {
     //     limitToLast: 25,
-    //     orderByKey: true
+    //     orderByKey: true,
     //   }
-    // });
+    // }
   }
-
-  getTimeStamp() {
+  getTimeStamp(): Date{
     const now = new Date();
     const date = now.getUTCFullYear() + '/' +
-                 (now.getUTCMonth() + 1) + '/' +
-                 now.getUTCDate();
+      (now.getUTCMonth() + 1) + '/' +
+      now.getUTCDate();
+    
     const time = now.getUTCHours() + ':' +
-                 now.getUTCMinutes() + ':' +
-                 now.getUTCSeconds();
-
-    return (date + ' ' + time);
+      now.getUTCMinutes() + ':' +
+      now.getUTCSeconds();
+    return now;
   }
 }

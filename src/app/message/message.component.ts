@@ -30,5 +30,6 @@ export class MessageComponent implements OnInit {
     this.timeStamp = chatMessage.timeSent;
     this.userEmail = chatMessage.email;
     this.userName = chatMessage.userName;
+    console.log(this.userEmail)
   }
 }
