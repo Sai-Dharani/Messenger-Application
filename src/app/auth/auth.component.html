@@ -20,8 +20,7 @@
         </form>
     </div>
 </div> -->
-
-<br>
+ <!-- <br>
 <div class="container-fluid  ">
     <div class="row d-flex justify-content-center align-items-center align-self-center">
         
@@ -32,7 +31,7 @@
         <div class="col-md-6 col-lg-6 col-xl-4 align-items-center justify-content-center justify-content-lg-center">
             
             <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-                <button class="btn btn-primary btn-lg " (click)="onSwitchMode()" type="button">{{isLoginMode ? 'Register': 'go to log in' }}</button> 
+                
                 <div class="form-outline mb-4">
                     <label class="form-label" for="emailLabel">Email address</label>
                     <input  class="form-control form-control-lg" id="emailLabel" placeholder="E-mail" ngModel name="email" type="text" required email>
@@ -42,11 +41,32 @@
                 <div class="form-outline mb-3">
                     <label class="form-label" for="passwdId">Password</label>
                     <input class="form-control form-control-lg" placeholder="Password" ngModel id="passwdId" name="password" type="password" value="" required minlength="6">
+                </div> -->
+
+
+                <!-- <section *ngIf="isLoginMode == false" >
+                    <div *ngFor="let country of countries; let i=index">
+                        <input type="checkbox" formArrayName="selectedCountries" [value]="country.value" (change)="onCheckboxChange($event)" 
+                        />
+                        {{ country.name}}
+                      </div>
+                      <p>{{ form.value | json }}</p>
+                  </section> -->
+
+                <!-- <div *ngIf="!isLoginMode">
+
+                    <section>
+                        <div>
+                          <span *ngFor="let item of list">
+                            <input type="checkbox" [(ngModel)]="item.checked" 
+                             (change)="changeCheckbox($event)">{{ item.country }}
+                          </span>
+                        </div> -->
+                        <!-- <pre>{{this.result | json}}</pre> -->
+                      <!-- </section>
+                    
                 </div>
 
-                <div *ngIf="!isLoginMode">
-                    <p>test</p>
-                </div>
                 <div class="alert alert-danger" *ngIf="error != '' " role="alert">
                     {{error}}
                   </div>
@@ -60,4 +80,4 @@
             </form>
         </div>
     </div>
-</div>
+</div>  -->
