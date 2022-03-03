@@ -5,16 +5,6 @@
     background-color: #EAEAEB;
 }
 
-/* #logo{
-    display: inline-block;
-    background: url('../../assets/img/logo.png') no-repeat;
-    background-size: cover;
-    margin: 12px 10px 12px 32px;
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
-} */
-
 #heading{
     flex: 4;
     padding: 24px 0px 8px 10px;

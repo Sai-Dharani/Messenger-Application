@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChatService } from '../services/chat.service';
 import { AuthService } from '../services/auth.service';
 import { ChatMessage } from '../models/chat-message.model';
 
@@ -19,9 +18,10 @@ export class MessageComponent implements OnInit {
   ownEmail: string;
 
   constructor(private authService: AuthService) {
-    authService.authUser().subscribe((user: { email: string; }) => {
+    authService.authUser().subscribe(user => {
       this.ownEmail = user.email;
       this.isOwnMessage = this.ownEmail === this.userEmail;
+      console.log(this.messageContent)
     });
   }
 
@@ -30,6 +30,5 @@ export class MessageComponent implements OnInit {
     this.timeStamp = chatMessage.timeSent;
     this.userEmail = chatMessage.email;
     this.userName = chatMessage.userName;
-    console.log(this.userEmail)
   }
 }

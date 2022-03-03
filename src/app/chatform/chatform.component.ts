@@ -20,7 +20,7 @@ export class ChatFormComponent implements OnInit {
     console.log(this.message)
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: { keyCode: number; }) {
     if (event.keyCode === 13) {
       this.send();
     }

@@ -4,7 +4,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import * as firebase from 'firebase/auth';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
