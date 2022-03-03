@@ -1,11 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {AngularFireModule} from '@angular/fire/compat';
 import { AppComponent } from './app.component';
-//import { MessagesComponent } from './messages/messages.component';
-//import { AuthComponent } from './auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-//import { TempComponent } from './temp/temp.component';
 import { MessageComponent } from './message/message.component';
 import { ChatFormComponent } from './chatform/chatform.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
@@ -18,7 +15,6 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserItemComponent } from './user-item/user-item.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { appRoutes } from '../routes';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
@@ -33,8 +29,6 @@ const config = {
   messagingSenderId: '1027487966847',
   appId: '1:1027487966847:web:2a2f04b9cea40de1e2414a'
 }
-// const app = initializeApp(config)
-// const database = getDatabase(app)
 
 @NgModule({
   declarations: [

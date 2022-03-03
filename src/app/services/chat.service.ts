@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { AngularFireList } from '@angular/fire/compat/database'
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import * as firebase from 'firebase/auth';
+import { AngularFireList } from '@angular/fire/compat/database/interfaces'
 import { ChatMessage } from '../models/chat-message.model';
-import { keyframes } from '@angular/animations';
 
 @Injectable()
 export class ChatService {
   user: firebase.User;
-  chatMessages: AngularFireList<ChatMessage[]>;
+  chatMessages: AngularFireList<ChatMessage>;
   chatMessage: ChatMessage;
   userName: string;
-  list:any
+  list: any;
 
   constructor(
     private db: AngularFireDatabase,
@@ -24,11 +21,11 @@ export class ChatService {
           if (auth !== undefined && auth !== null) {
             this.user = auth;
           }
-         this.list= this.getUser().valueChanges()
-         this.list.subscribe(a => {
-            this.userName = a.displayName;
-          });
-        });
+          this.list= this.getUser().snapshotChanges()
+          this.list.subscribe((a) => {
+             this.userName = a.displayName;
+           });
+         });    
     }
 
   getUser() {
@@ -46,38 +43,30 @@ export class ChatService {
     const timestamp = this.getTimeStamp();
     const email = this.user.email;
     this.chatMessages = this.getMessages();
-    this.chatMessages.push([
+    this.chatMessages.push(
       {
-      message: msg,
-      userName: this.userName,
-      timeSent: timestamp,
-      email: email 
+      message: msg || null,
+      timeSent: timestamp || null,
+      userName: this.userName || null,
+      email: email || null, 
     }
-  ]
-      );
+  );
+  console.log(msg)
   }
 
-  getMessages(): AngularFireList<ChatMessage[]> {
-    // query to create our message feed binding
-    //console.log(this.db.list('messages'))
-    return this.db.list('messages')
- 
-    // , {
-    //   query: {
-    //     limitToLast: 25,
-    //     orderByKey: true,
-    //   }
-    // }
+  getMessages(): AngularFireList<ChatMessage> {
+    return this.db.list('message', ref => ref.orderByKey().limitToLast(25));
   }
-  getTimeStamp(): Date{
+
+  getTimeStamp():Date {
     const now = new Date();
     const date = now.getUTCFullYear() + '/' +
-      (now.getUTCMonth() + 1) + '/' +
-      now.getUTCDate();
-    
+                 (now.getUTCMonth() + 1) + '/' +
+                 now.getUTCDate();
     const time = now.getUTCHours() + ':' +
-      now.getUTCMinutes() + ':' +
-      now.getUTCSeconds();
+                 now.getUTCMinutes() + ':' +
+                 now.getUTCSeconds();
+
     return now;
   }
 }

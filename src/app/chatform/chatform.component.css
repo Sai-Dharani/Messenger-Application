@@ -15,7 +15,7 @@
     transition: 0.2s ease-in;
 }
 
-.button{
+.chatButton{
     flex: 1;
     padding: 10px;
     padding: 8px 24px;
@@ -27,6 +27,6 @@
     min-width: 50px;
 }
 
-.button:hover{
+.chatButton:hover{
     background-color: #444;
 }

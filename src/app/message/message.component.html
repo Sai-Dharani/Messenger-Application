@@ -8,7 +8,7 @@
         </span>
         <span class="timestamp" 
             [ngClass] = "{'isOwnTimestamp':isOwnMessage}">
-            {{ timeStamp }}
+            {{ timeStamp | date:'medium' }}
         </span>
     </div>
     <div class="messageContent"
