@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit {
     authService.authUser().subscribe(user => {
       this.ownEmail = user.email;
       this.isOwnMessage = this.ownEmail === this.userEmail;
-      console.log(this.messageContent)
+      //console.log(this.messageContent)
     });
   }
 

@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/auth';
 import { AngularFireList } from '@angular/fire/compat/database/interfaces'
 import { ChatMessage } from '../models/chat-message.model';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class ChatService {
@@ -11,25 +12,29 @@ export class ChatService {
   chatMessages: AngularFireList<ChatMessage>;
   chatMessage: ChatMessage;
   userName: string;
-  list: any;
 
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
     ) {
+      console.log(this.userName)
         this.afAuth.authState.subscribe(auth => {
           if (auth !== undefined && auth !== null) {
             this.user = auth;
           }
-          this.list= this.getUser().snapshotChanges()
-          this.list.subscribe((a) => {
-             this.userName = a.displayName;
-           });
+        // this.getUser().valueChanges().subscribe((a:User) => {
+        //   if(a?.displayName){
+        //      this.userName = a.displayName;
+        //   }
+        //   else{
+        //     console.log("value of a",a);
+        //   }
+        //    });
          });    
     }
 
   getUser() {
-    const userId = this.user.uid;
+    const userId = this.user.email;
     const path = `/users/${userId}`;
     return this.db.object(path);
   }
@@ -45,13 +50,13 @@ export class ChatService {
     this.chatMessages = this.getMessages();
     this.chatMessages.push(
       {
-      message: msg || null,
-      timeSent: timestamp || null,
-      userName: this.userName || null,
-      email: email || null, 
+      message: msg,
+      timeSent: timestamp,
+      userName: this.userName,
+      email: email, 
     }
   );
-  console.log(msg)
+  console.log(this.userName)
   }
 
   getMessages(): AngularFireList<ChatMessage> {

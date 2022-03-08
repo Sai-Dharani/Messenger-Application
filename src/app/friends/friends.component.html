@@ -1,0 +1,32 @@
+<div class="searchbox">
+    <input type="text" placeholder="search friends..">
+    <button >Add</button>
+</div>
+
+<!-- <ul>
+    <li *ngFor="let item of users">
+      <button>{{item}}</button>  
+        {{item.$value}}
+    </li>
+</ul> -->
+
+<br>
+<div>
+<table id="customers" >
+    <tr>
+      <th>name</th>
+      <th>email</th> 
+    </tr>
+    <tr>
+        
+      <!-- <td >{{users}}</td> -->
+      <td><ul *ngFor="let item of users">
+      <button id="user_name" (click)="chat(item)">{{item}} </button> 
+      </ul></td>
+
+     <ul *ngFor="let item2 of usermail">
+        {{item2}} 
+     </ul>    
+    </tr>
+  </table>
+</div>
