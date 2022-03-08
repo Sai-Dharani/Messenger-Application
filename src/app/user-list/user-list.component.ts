@@ -9,12 +9,12 @@ import { ChatService } from '../services/chat.service';
 })
 export class UserListComponent {
   users: User[];
-  usersList:any;
 
   constructor(chat: ChatService) {
-   this.usersList= chat.getUsers().valueChanges()
-   this.usersList.subscribe(users => {
+   chat.getUsers().valueChanges().subscribe(users => {
       this.users = users;
+     // console.log(this.users)
     });
+  
   }
 }

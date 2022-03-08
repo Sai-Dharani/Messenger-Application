@@ -8,6 +8,7 @@ import { ChatFormComponent } from './chatform/chatform.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { FeedComponent } from './feed/feed.component';
 import { NgModule } from '@angular/core';
+import { FriendsComponent } from './friends/friends.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -42,6 +43,7 @@ const config = {
     NavbarComponent,
     UserListComponent,
     UserItemComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,

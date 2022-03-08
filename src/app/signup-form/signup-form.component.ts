@@ -22,7 +22,7 @@ export class SignupFormComponent {
     const password = this.password;
     const displayName = this.displayName;
     this.authService.signUp(email, password, displayName)
-      .then(resolve => this.router.navigate(['chat']))
+      .then(resolve => this.router.navigate(['friends']))
       .catch(error => this.errorMsg = error.message);
   }
 }

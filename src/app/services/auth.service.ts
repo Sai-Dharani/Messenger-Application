@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  private user: Observable<firebase.User>;
-  private authState: any;
+  user: Observable<firebase.User>;
+  authState: any;
 
   constructor(private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
@@ -28,8 +28,9 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
+        console.log('lineno:31',this.authState);
         this.setUserStatus('online');
-        this.router.navigate(['chat']);
+        this.router.navigate(['friends']);
       });
   }
 
@@ -48,7 +49,7 @@ export class AuthService {
   }
 
   setUserData(email: string, displayName: string, status: string): void {
-    const path = `users/${this.currentUserId}`;
+    const path = `users/data`;
     const data = {
       email: email,
       displayName: displayName,
@@ -60,7 +61,7 @@ export class AuthService {
   }
 
   setUserStatus(status: string): void {
-    const path = `users/${this.currentUserId}`;
+    const path = `status`;
 
     const data = {
       status: status
