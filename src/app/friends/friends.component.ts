@@ -17,6 +17,10 @@ export class FriendsComponent implements OnInit {
   // @Input() user:User;
   users: any[];
   usermail: any[];
+  displayname: string[] = [];
+  tempname: string;
+  tempemail: any;
+  displayemail: string[] = [];
   constructor(private db: AngularFireDatabase,
     private route: Router,
     private chatService: ChatService,
