@@ -29,7 +29,7 @@ export class AuthService {
       .then((user) => {
         this.authState = user;
         console.log('lineno:31', this.authState);
-        this.setUserStatus('online', this.authState);
+        // this.setUserStatus('online', this.authState);
         this.router.navigate(['friends']);
         localStorage.setItem('uid', this.authState.user.uid);
         console.log('login' + localStorage.getItem('uid'));
@@ -60,7 +60,7 @@ export class AuthService {
     // const path = `users/data`;
     // const path = `users/${email}`;
 
-    console.log(authState.user.uid);
+    // console.log(authState.user.uid);
     const path = `users/${authState.user.uid}`;
 
     // this.count++;
@@ -76,8 +76,8 @@ export class AuthService {
 
   setUserStatus(status: string, authState: any): void {
     const temp = localStorage.getItem('uid');
-    console.log(temp);
-    const path = `users/${temp}`;
+    console.log("login" + temp);
+    const path = `userstatus/${temp}`;
 
 
     const data = {
