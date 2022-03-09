@@ -16,17 +16,20 @@
     <tr>
       <th>name</th>
       <th>email</th> 
+      
     </tr>
     <tr>
         
-      <!-- <td >{{users}}</td> -->
-      <td><ul *ngFor="let item of users">
-      <button id="user_name" (click)="chat(item)">{{item}} </button> 
+      
+      <td><ul *ngFor="let name of displayname">
+      <button id="user_name" (click)="chat(name)">{{name}}  </button> 
       </ul></td>
 
-     <ul *ngFor="let item2 of usermail">
-        {{item2}} 
-     </ul>    
+     <ul *ngFor="let email of displayemail">
+        {{email}} 
+     </ul>   
+     
+   
     </tr>
   </table>
 </div>
