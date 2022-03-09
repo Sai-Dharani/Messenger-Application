@@ -16,26 +16,27 @@ export class ChatService {
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
-    ) {
-      console.log(this.userName)
-        this.afAuth.authState.subscribe(auth => {
-          if (auth !== undefined && auth !== null) {
-            this.user = auth;
-          }
-        // this.getUser().valueChanges().subscribe((a:User) => {
-        //   if(a?.displayName){
-        //      this.userName = a.displayName;
-        //   }
-        //   else{
-        //     console.log("value of a",a);
-        //   }
-        //    });
-         });    
-    }
+  ) {
+    console.log(this.userName)
+    this.afAuth.authState.subscribe(auth => {
+      if (auth !== undefined && auth !== null) {
+        this.user = auth;
+      }
+      // this.getUser().valueChanges().subscribe((a:User) => {
+      //   if(a?.displayName){
+      //      this.userName = a.displayName;
+      //   }
+      //   else{
+      //     console.log("value of a",a);
+      //   }
+      //    });
+    });
+  }
 
   getUser() {
     const userId = this.user.email;
     const path = `/users/${userId}`;
+
     return this.db.object(path);
   }
 
@@ -50,27 +51,27 @@ export class ChatService {
     this.chatMessages = this.getMessages();
     this.chatMessages.push(
       {
-      message: msg,
-      timeSent: timestamp,
-      userName: this.userName,
-      email: email, 
-    }
-  );
-  console.log(this.userName)
+        message: msg,
+        timeSent: timestamp,
+        userName: this.userName,
+        email: email,
+      }
+    );
+    console.log(this.userName)
   }
 
   getMessages(): AngularFireList<ChatMessage> {
     return this.db.list('message', ref => ref.orderByKey().limitToLast(25));
   }
 
-  getTimeStamp():Date {
+  getTimeStamp(): Date {
     const now = new Date();
     const date = now.getUTCFullYear() + '/' +
-                 (now.getUTCMonth() + 1) + '/' +
-                 now.getUTCDate();
+      (now.getUTCMonth() + 1) + '/' +
+      now.getUTCDate();
     const time = now.getUTCHours() + ':' +
-                 now.getUTCMinutes() + ':' +
-                 now.getUTCSeconds();
+      now.getUTCMinutes() + ':' +
+      now.getUTCSeconds();
 
     return now;
   }
