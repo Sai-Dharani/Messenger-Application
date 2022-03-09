@@ -72,6 +72,8 @@ export class AuthService {
 
     this.db.object(path).update(data)
       .catch(error => console.log(error));
+      .catch(
+        error => console.log(error));
   }
 
   setUserStatus(status: string, authState: any): void {

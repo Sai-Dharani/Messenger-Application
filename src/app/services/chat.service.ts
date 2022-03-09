@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class ChatService {
+
   user: firebase.User;
   chatMessages: AngularFireList<ChatMessage>;
   chatMessage: ChatMessage;
@@ -16,12 +17,16 @@ export class ChatService {
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
+
   ) {
     console.log(this.userName)
     this.afAuth.authState.subscribe(auth => {
       if (auth !== undefined && auth !== null) {
         this.user = auth;
+        console.log("22 " + this.afAuth.authState);
       }
+      console.log("26" + this.afAuth.authState);
+
       // this.getUser().valueChanges().subscribe((a:User) => {
       //   if(a?.displayName){
       //      this.userName = a.displayName;
