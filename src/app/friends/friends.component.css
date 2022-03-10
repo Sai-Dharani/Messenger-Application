@@ -1,6 +1,12 @@
-.searchbox{
-    padding-top: 45px;
-    padding-left: 450px;
+.search{
+    padding:20px;
+    width:50%;
+    margin-left: 26%;
+    margin-bottom: 5%;
+}
+input{
+  border: 1px solid black;
+  box-shadow: 5px 5px 2px gray;
 }
 
 #customers {
