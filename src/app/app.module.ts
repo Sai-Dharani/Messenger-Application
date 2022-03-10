@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {AngularFireModule} from '@angular/fire/compat';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,6 +8,8 @@ import { ChatFormComponent } from './chatform/chatform.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { FeedComponent } from './feed/feed.component';
 import { NgModule } from '@angular/core';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 import { FriendsComponent } from './friends/friends.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
@@ -53,6 +55,7 @@ const config = {
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
+    Ng2SearchPipeModule,
     AngularFireModule.initializeApp(config)
   ],
   providers: [AuthService, ChatService],
@@ -60,4 +63,4 @@ const config = {
 })
 export class AppModule {
 
- }
+}
