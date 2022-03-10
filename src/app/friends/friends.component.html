@@ -1,14 +1,9 @@
-<div class="searchbox">
+<!-- <div class="searchbox">
     <input type="text" placeholder="search friends..">
     <button >Add</button>
+    
 </div>
 
-<!-- <ul>
-    <li *ngFor="let item of users">
-      <button>{{item}}</button>  
-        {{item.$value}}
-    </li>
-</ul> -->
 
 <br>
 <div>
@@ -19,17 +14,52 @@
       
     </tr>
     <tr>
-        
-      
-      <td><ul *ngFor="let name of displayname">
-      <button id="user_name" (click)="chat(name)">{{name}}  </button> 
-      </ul></td>
+      <td  >
+        <ul *ngFor="let data of usersData | filter:data">
+          <button id="user_name" (click)="chat(data)">{{data.displayName}} 
+        </button> 
+      </ul>
+      </td>
+      <td>
+      <ul *ngFor="let data of usersData | filter:data">
+        {{data.email}}
+     </ul> 
+    </td>
 
-     <ul *ngFor="let email of displayemail">
+      <ul *ngFor="let email of displayemail">
         {{email}} 
      </ul>   
-     
+     <ul *ngFor="let data of usersData">
+      {{data.displayName}} 
+      {{data.email}}
+   </ul>  -->
+     <!-- <ul *ngFor="let display of displays">
+      {{display.email}} 
+      {{display.name}}
+   </ul>    
    
     </tr>
+  </table>
+</div> -->
+<div class="container">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Type to search" [(ngModel)]="data">
+  </div>
+  
+  <table class="table ">
+    <thead class="thead-dark">
+      <tr>
+        
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of usersData | filter:data">
+        
+        <td><button id="user_name" (click)="chat(data.displayName)">{{data.displayName}} </button> </td>
+        <td>{{data.email}}</td>
+      </tr>
+    </tbody>
   </table>
 </div>
