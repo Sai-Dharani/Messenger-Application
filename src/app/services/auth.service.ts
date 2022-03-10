@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-// import { fire}
 import * as firebase from 'firebase/auth';
 import { Observable } from 'rxjs';
 
@@ -30,7 +29,6 @@ export class AuthService {
       .then((user) => {
         this.authState = user;
         console.log('lineno:31', this.authState);
-        // this.setUserStatus('online', this.authState);
         this.router.navigate(['friends']);
         localStorage.setItem('uid', this.authState.user.uid);
         console.log('login' + localStorage.getItem('uid'));
@@ -40,7 +38,6 @@ export class AuthService {
   }
 
   logout() {
-    this.setUserStatus('offline', this.authState);
     this.afAuth.signOut();
     this.router.navigate(['login']);
   }
@@ -50,41 +47,19 @@ export class AuthService {
       .then((user) => {
         this.authState = user;
         const status = 'online';
-        this.setUserData(email, displayName, status, this.authState);
+        this.setUserData(email, displayName, this.authState);
         localStorage.setItem('uid', this.authState.user.uid);
         console.log('signUp' + localStorage.getItem('uid'));
       }).catch(
         error => console.log(error));
   }
 
-  setUserData(email: string, displayName: string, status: string, authState: any): void {
-    // const path = `users/data`;
-    // const path = `users/${email}`;
-
-    // console.log(authState.user.uid);
+  setUserData(email: string, displayName: string, authState: any): void {
     const path = `users/${authState.user.uid}`;
-
-    // this.count++;
     const data = {
       email: email,
       displayName: displayName,
-      status: status
     };
-
-    this.db.object(path).update(data)
-      .catch(error => console.log(error));
-  }
-
-  setUserStatus(status: string, authState: any): void {
-    const temp = localStorage.getItem('uid');
-    console.log("login" + temp);
-    const path = `userstatus/${temp}`;
-
-
-    const data = {
-      status: status
-    };
-
     this.db.object(path).update(data)
       .catch(error => console.log(error));
   }

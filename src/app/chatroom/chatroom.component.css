@@ -1,5 +1,6 @@
 .mainContent{
     display: flex;
+    height: 530px;
 }
 
 .userListWrapper {

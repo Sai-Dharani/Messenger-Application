@@ -1,14 +1,13 @@
 .container{
   overflow:hidden;
-  background: 
-    linear-gradient(45deg, rgba(0,103, 255, 0.3), rgba(0, 150, 80, 0.9));
 }
 
 .signUpCard{
   display: block;
   border: 1px solid #000;
   border-radius: 4px;
-  background-color: rgba(255,255,255,0.85);
+  background: 
+    linear-gradient(45deg, rgba(0,103, 255, 0.3), rgba(0, 150, 80, 0.9));
   width: 700px;
   height: 520px;
   margin: auto;

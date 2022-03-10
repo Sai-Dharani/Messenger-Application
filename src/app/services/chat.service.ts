@@ -20,16 +20,7 @@ export class ChatService {
     this.afAuth.authState.subscribe(auth => {
       if (auth !== undefined && auth !== null) {
         this.user = auth;
-
       }
-      // this.getUser().valueChanges().subscribe((a:User) => {
-      //   if(a?.displayName){
-      //      this.userName = a.displayName;
-      //   }
-      //   else{
-      //     console.log("value of a",a);
-      //   }
-      //    });
     });
   }
 
@@ -56,22 +47,33 @@ export class ChatService {
         email: email,
       }
     );
-    console.log(this.userName)
   }
 
   getMessages(): AngularFireList<ChatMessage> {
-    return this.db.list('message', ref => ref.orderByKey().limitToLast(25));
+    return this.db.list(`message/${this.userName}`, ref => ref.orderByKey().limitToLast(25));
   }
 
-  getTimeStamp(): Date {
+  // getTimeStamp(): Date {
+  //   const now = new Date();
+  //   const date = now.getUTCFullYear() + '/' +
+  //     (now.getUTCMonth() + 1) + '/' +
+  //     now.getUTCDate();
+  //   const time = now.getUTCHours() + ':' +
+  //     now.getUTCMinutes() + ':' +
+  //     now.getUTCSeconds();
+
+  //   return now;
+  // }
+  getTimeStamp():Date {
     const now = new Date();
     const date = now.getUTCFullYear() + '/' +
-      (now.getUTCMonth() + 1) + '/' +
-      now.getUTCDate();
+                 (now.getUTCMonth() + 1) + '/' +
+                 now.getUTCDate();
     const time = now.getUTCHours() + ':' +
-      now.getUTCMinutes() + ':' +
-      now.getUTCSeconds();
-
+                 now.getUTCMinutes() + ':' +
+                 now.getUTCSeconds();
+    console.log(now)
     return now;
   }
+  
 }
