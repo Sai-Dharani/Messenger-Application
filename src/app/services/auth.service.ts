@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   user: Observable<firebase.User>;
   authState: any;
-
+  count = 0;
   constructor(private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private router: Router) {
@@ -29,13 +29,18 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
-        console.log('lineno:31',this.authState);
-        this.setUserStatus('online');
+        console.log('lineno:31', this.authState);
+        // this.setUserStatus('online', this.authState);
         this.router.navigate(['friends']);
+        localStorage.setItem('uid', this.authState.user.uid);
+        console.log('login' + localStorage.getItem('uid'));
+
+
       });
   }
 
   logout() {
+    this.setUserStatus('offline', this.authState);
     this.afAuth.signOut();
     this.router.navigate(['login']);
   }
@@ -45,12 +50,21 @@ export class AuthService {
       .then((user) => {
         this.authState = user;
         const status = 'online';
-        this.setUserData(email, displayName, status);
-      }).catch(error => console.log(error));
+        this.setUserData(email, displayName, status, this.authState);
+        localStorage.setItem('uid', this.authState.user.uid);
+        console.log('signUp' + localStorage.getItem('uid'));
+      }).catch(
+        error => console.log(error));
   }
 
-  setUserData(email: string, displayName: string, status: string): void {
-    const path = `users/data`;
+  setUserData(email: string, displayName: string, status: string, authState: any): void {
+    // const path = `users/data`;
+    // const path = `users/${email}`;
+
+    // console.log(authState.user.uid);
+    const path = `users/${authState.user.uid}`;
+
+    // this.count++;
     const data = {
       email: email,
       displayName: displayName,
@@ -61,8 +75,11 @@ export class AuthService {
       .catch(error => console.log(error));
   }
 
-  setUserStatus(status: string): void {
-    const path = `status`;
+  setUserStatus(status: string, authState: any): void {
+    const temp = localStorage.getItem('uid');
+    console.log("login" + temp);
+    const path = `userstatus/${temp}`;
+
 
     const data = {
       status: status
