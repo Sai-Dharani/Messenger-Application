@@ -8,7 +8,7 @@
     border-collapse: collapse;
     width: 50%;
     margin-left: 350px;
-
+    text-align: center;
   }
   
   #customers td, #customers th {
@@ -22,7 +22,7 @@
   #customers th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #2A2845;
     color: white;
   }

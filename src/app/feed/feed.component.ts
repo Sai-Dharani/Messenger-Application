@@ -1,8 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ChatService } from '../services/chat.service';
-import { Observable } from 'rxjs';
-import { ChatMessage } from '../models/chat-message.model';
-import {AngularFireList } from '@angular/fire/compat/database';
 
 @Component({
   selector: 'app-feed',

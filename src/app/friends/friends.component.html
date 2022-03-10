@@ -3,17 +3,15 @@
     <button >Add</button>
     
 </div>
-
-
 <br>
 <div>
 <table id="customers" >
     <tr>
       <th>name</th>
-      <th>email</th> 
-      
+      <th>email</th>   
     </tr>
     <tr>
+
       <td  >
         <ul *ngFor="let data of usersData | filter:data">
           <button id="user_name" (click)="chat(data)">{{data.displayName}} 
@@ -63,3 +61,4 @@
     </tbody>
   </table>
 </div>
+
