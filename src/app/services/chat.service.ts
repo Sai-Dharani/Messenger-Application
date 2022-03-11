@@ -36,13 +36,11 @@ export class ChatService {
   }
 
   sendMessage(msg: string) {
-    const timestamp = this.getTimeStamp();
     const email = this.user.email;
     this.chatMessages = this.getMessages();
     this.chatMessages.push(
       {
         message: msg,
-        timeSent: timestamp,
         userName: this.userName,
         email: email,
       }
@@ -53,27 +51,4 @@ export class ChatService {
     return this.db.list(`message/${this.userName}`, ref => ref.orderByKey().limitToLast(25));
   }
 
-  // getTimeStamp(): Date {
-  //   const now = new Date();
-  //   const date = now.getUTCFullYear() + '/' +
-  //     (now.getUTCMonth() + 1) + '/' +
-  //     now.getUTCDate();
-  //   const time = now.getUTCHours() + ':' +
-  //     now.getUTCMinutes() + ':' +
-  //     now.getUTCSeconds();
-
-  //   return now;
-  // }
-  getTimeStamp():Date {
-    const now = new Date();
-    const date = now.getUTCFullYear() + '/' +
-                 (now.getUTCMonth() + 1) + '/' +
-                 now.getUTCDate();
-    const time = now.getUTCHours() + ':' +
-                 now.getUTCMinutes() + ':' +
-                 now.getUTCSeconds();
-    console.log(now)
-    return now;
-  }
-  
 }
